@@ -4,17 +4,15 @@ import styled from 'styled-components';
 import { NotesPage } from '../components/notes/NotesPage';
 import { TasksPage } from '../components/tasks/TasksPage';
 import { Appbar } from '../components/ui/AppBar';
-import { BottomAppBar } from '../components/ui/BottomAppBar';
 
 const Grid = styled.div`
     display: grid;
     height: 100vh;
     grid-template-columns: 1fr;
-    grid-template-rows: 8% 1fr 8%;
+    grid-template-rows: 8% 1fr;
     grid-template-areas:
     "appbar"
     "main"
-    "bottombar"
 `;
 
 const Main = styled.main`
@@ -42,8 +40,6 @@ export const DashboardRouter = () => {
 
                     </Switch>
                 </Main>
-
-                <BottomAppBar />
 
         </Grid>
     )

@@ -1,55 +1,50 @@
 import { IconButton, List, ListItem, ListItemSecondaryAction, ListItemText } from '@material-ui/core';
 import { Delete } from '@material-ui/icons';
-import React, { useState } from 'react';
+import { useMutation, useQueryClient } from 'react-query';
+import { deleteTask, editTask } from '../../api';
+import React from 'react';
 
-const tasksFixtures = [
-    {
-        title : 'buy bread',
-        done : false
-    },
-    {
-        title : 'go to the gym',
-        done : false
-    },
-    {
-        title : 'finish the project',
-        done : false
-    }
-];
+export const TasksList = ({tasks = []}) => {
 
+    const queryClient = useQueryClient();
 
-export const TasksList = () => {
+    const editTaskMutation = useMutation((task) => editTask(task), {
+        onSuccess : () => {
+            queryClient.invalidateQueries('getAllTasks');
+        }
+    });
 
-    const [tasks, setTasks] = useState(tasksFixtures);
+    const deleteTaskMutation = useMutation((taskId) => deleteTask(taskId), {
+        onSuccess : () => {
+            queryClient.invalidateQueries('getAllTasks');
+        }
+    });
+
 
     const handleTaskClick = (index) => {
-        tasks[index].done = !tasks[index].done;
-        setTasks([
-            ...tasks
-        ]);
+        tasks[index].completed = !tasks[index].completed;
+        editTaskMutation.mutate(tasks[index]);
+
     }
 
     const handleTaskDelete = (index) => {
-        tasks.splice(index, 1);
-        setTasks([
-            ...tasks
-        ])
+        deleteTaskMutation.mutate(tasks[index].id);
     }
 
     return (
         <List
-            style={{ width : '100%', overflowY : 'auto' }}
+            style={{ width : '100%', overflowY : 'auto'}}
         >
             {
                 tasks.map((task, index) => {
                     return (
                         <ListItem
-                            style={{ textDecoration : (task.done) ? 'line-through' : 'none'}}
+                            style={{ textDecoration : (task.completed) ? 'line-through' : 'none'}}
                             key={index} 
                             button
                             onClick={() => handleTaskClick(index)}
                             >
-                            <ListItemText children={task.title} />
+                            <ListItemText children={task.description} />
                             <ListItemSecondaryAction
                                 onClick={ () => handleTaskDelete(index) }
                                 children={

@@ -5,9 +5,9 @@ import { Link, useHistory } from 'react-router-dom';
 import GoogleLogin from 'react-google-login';
 import { useFormik } from 'formik';
 import { loginSchema } from '../../validators/login-validator';
-import { googleSignIn, login } from '../../providers/auth-provider';
 import { AuthContext } from '../../contexts/AuthContext';
 import { AuthTypes } from '../../types/AuthTypes';
+import { googleSignIn, login } from '../../api';
 
 
 const LoginContainer = styled(Paper)`
@@ -60,6 +60,7 @@ export const LoginPage = () => {
 
         googleSignIn(tokenId)
             .then((response) => {
+ 
                 dispatch({
                     type : AuthTypes.login,
                     payload : response.data
@@ -80,7 +81,6 @@ export const LoginPage = () => {
 
         login(email, password)
             .then((response) => {
-                
                 dispatch({
                     type : AuthTypes.login,
                     payload : response.data

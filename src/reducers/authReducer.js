@@ -5,8 +5,11 @@ export const authReducer = (state = {}, action = {}) => {
     switch(action?.type){
 
         case AuthTypes.login:
+
+            localStorage.setItem('x-token', action.payload.token);
+
             return {
-                ...action.payload,
+                ...action.payload.user,
                 logged : true
             }
 

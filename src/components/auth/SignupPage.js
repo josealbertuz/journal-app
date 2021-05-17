@@ -5,7 +5,7 @@ import { Link, useHistory } from 'react-router-dom';
 import { useFormik } from 'formik';
 import { signupSchema } from '../../validators/signup-validator';
 import { AuthContext } from '../../contexts/AuthContext';
-import { signup } from '../../providers/auth-provider';
+import { signup } from '../../api';
 import { AuthTypes } from '../../types/AuthTypes';
 
 const SignupContainer = styled(Paper)`
