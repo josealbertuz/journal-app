@@ -1,10 +1,9 @@
 import React, { useReducer } from 'react'
 import { QueryClient, QueryClientProvider } from 'react-query';
-import { ThemeProvider } from 'styled-components'
 import { AppRouter } from './routes/AppRouter'
-import { styledComponentsTheme } from './themes/styled-components-theme';
 import { authReducer } from './reducers/authReducer';
 import { AuthContext } from './contexts/AuthContext';
+import { ChakraProvider } from '@chakra-ui/react';
 
 const queryClient = new QueryClient();
 
@@ -20,9 +19,9 @@ export const JournalApp = () => {
                 user,
                 dispatch
             }}>
-                <ThemeProvider theme={styledComponentsTheme}>
+                <ChakraProvider>
                     <AppRouter />
-                </ThemeProvider>
+                </ChakraProvider>
             </AuthContext.Provider>
         </QueryClientProvider>
     );

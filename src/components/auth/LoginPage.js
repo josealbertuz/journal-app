@@ -18,6 +18,8 @@ const LoginContainer = styled(Paper)`
 
 const Title = styled.h1`
     text-align: center;
+    font-size: 2rem;
+    font-weight: bold;
 `;
 
 const Divider = styled.hr`

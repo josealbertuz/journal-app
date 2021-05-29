@@ -16,6 +16,8 @@ const SignupContainer = styled(Paper)`
 
 const Title = styled.h1`
     text-align: center;
+    font-size: 2rem;
+    font-weight: bold;
 `;
 
 const StyledLink = styled(Link)`

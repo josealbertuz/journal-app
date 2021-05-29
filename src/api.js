@@ -92,3 +92,86 @@ export const deleteTask = (taskId) => {
     );
 
 }
+
+export const addNote = () => {
+
+    return axios.post(
+        '/note',
+        null,
+        {
+            headers : {
+                'x-token' : localStorage.getItem('x-token')
+            }
+        }
+    );
+
+}
+
+export const getNoteById = (noteId) => {
+
+    return axios.get(
+        `/note/${noteId}`,
+        {
+            headers : {
+                'x-token' : localStorage.getItem('x-token')
+            }
+        }
+    );
+
+}
+
+export const getAllNotes = () => {
+    return axios.get(
+        '/note', 
+        {
+            headers : {
+                'x-token' : localStorage.getItem('x-token')
+            }
+        }
+    );
+}
+
+export const editNote = ({ noteId, title, body }) => {
+
+    return axios.put(
+        `/note/${noteId}`,
+        {
+            title,
+            body
+        },
+        {
+            headers : {
+                'x-token' : localStorage.getItem('x-token')
+            }
+        }
+    );
+
+}
+
+export const deleteNote = (noteId) => {
+
+    return axios.delete(
+        `/note/${noteId}`,
+        {
+            headers : {
+                'x-token' : localStorage.getItem('x-token')
+            }
+        }
+    );
+
+}
+
+export const uploadImage = ({noteId, formData}) => {
+
+    return axios.post(
+        `/uploads/${noteId}`,
+        formData,
+        {
+            headers : {
+                "Content-Type": "multipart/form-data",
+                'x-token' : localStorage.getItem('x-token')
+            }
+        }
+    );
+
+}

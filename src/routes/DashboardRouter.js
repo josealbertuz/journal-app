@@ -3,6 +3,7 @@ import { Switch, Route, Redirect } from 'react-router';
 import styled from 'styled-components';
 import { NotesPage } from '../components/notes/NotesPage';
 import { TasksPage } from '../components/tasks/TasksPage';
+import { NoteEditor } from '../components/notes/NoteEditor';
 import { Appbar } from '../components/ui/AppBar';
 
 const Grid = styled.div`
@@ -32,9 +33,11 @@ export const DashboardRouter = () => {
                 <Main>
                     <Switch>
 
-                        <Route exact path="/notes" component={NotesPage} />
+                        <Route exact path="/notes" component={ NotesPage } />
 
-                        <Route exact path="/tasks" component={TasksPage} />
+                        <Route exact path="/tasks" component={ TasksPage } />
+
+                        <Route exact path="/notes/:noteId" component={ NoteEditor } />
 
                         <Redirect to="/notes" component={NotesPage} />
 
