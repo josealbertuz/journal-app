@@ -4,18 +4,24 @@ import { VStack } from '@chakra-ui/layout';
 import { Edit } from '@material-ui/icons';
 import { Formik } from 'formik';
 import styled from 'styled-components';
-import { Textarea } from '@chakra-ui/textarea';
 import { ImagesGrid } from '../notes/ImagesGrid';
 import { Flex } from '@chakra-ui/layout';
 import { UploadButton } from '../ui/UploadButton';
 import { Input } from '@chakra-ui/input';
+import { TextareaAutosize } from '@material-ui/core';
 
 const Form = styled.form`
-    height: 100%;
     width: 100%;
-    padding: 2%;
-    overflow: auto;
 `;
+
+const TextArea = styled(TextareaAutosize)`
+    width: 100%;
+    padding-inline-start: 1rem;
+    padding-inline-end: 1rem;
+    &:focus {
+        outline: none;
+    }
+`
 
 export const NoteForm = ({ initialValues, handleSubmit, handleFiles }) => {
     return (
@@ -52,15 +58,11 @@ export const NoteForm = ({ initialValues, handleSubmit, handleFiles }) => {
                                     value={props.values.title}
                                     placeholder="title"
                                     size="lg" />
-                                <Textarea
-                                    fontSize="1rem"
-                                    border="none"
-                                    _focus="none"
+                                <TextArea 
                                     name="body"
                                     onChange={props.handleChange}
                                     value={props.values.body}
-                                    placeholder="Body"
-                                    size="lg"
+                                    placeholder="body"
                                 />
                                 <ImagesGrid />
                             </VStack>

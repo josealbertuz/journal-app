@@ -8,6 +8,7 @@ import { useHistory } from 'react-router';
 import { deleteNote } from '../../api';
 import { ImagesGrid } from './ImagesGrid';
 
+/*
 const placeholderImages = [
     'https://via.placeholder.com/100x100',
     'https://via.placeholder.com/100x100',
@@ -16,6 +17,7 @@ const placeholderImages = [
     'https://via.placeholder.com/100x100',
     'https://via.placeholder.com/100x100',
 ];
+*/
 
 export const NoteCard = ({ note }) => {
 
@@ -47,10 +49,12 @@ export const NoteCard = ({ note }) => {
             }}
         >
             <CardContent>
-                <ImagesGrid
-                    images={placeholderImages}
-                    filter={(placeholderImages.length > 4)}
-                />
+                {
+                    (note.files.length > 0) && <ImagesGrid
+                        images={note.files}
+                        filter={(note.files.length > 4)}
+                    />
+                }
                 <Text
                     marginY={3}
                     as="b"

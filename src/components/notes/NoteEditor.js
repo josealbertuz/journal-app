@@ -6,6 +6,9 @@ import { CircularProgress } from '@chakra-ui/progress';
 import { useMutation, useQueryClient } from 'react-query';
 import { editNote, uploadImage } from '../../api';
 import { NoteForm } from './NoteForm';
+import { VStack } from '@chakra-ui/layout';
+import { ImagesGrid } from './ImagesGrid';
+import { Box } from '@chakra-ui/layout';
 
 
 export const NoteEditor = () => {
@@ -18,9 +21,9 @@ export const NoteEditor = () => {
 
     const editNoteMutation = useMutation((values) => editNote(values), {
         onSuccess: () => {
-            queryClient.invalidateQueries([noteId, 'getNoteById']);
+            queryClient.invalidateQueries(['getNoteById', noteId]);
             queryClient.invalidateQueries('getAllNotes');
-            
+
         }
     });
 
@@ -37,7 +40,7 @@ export const NoteEditor = () => {
         onSuccess: () => {
             queryClient.invalidateQueries([noteId, 'getNoteById']);
             queryClient.invalidateQueries('getAllNotes');
-            
+
         }
     })
 
@@ -46,7 +49,7 @@ export const NoteEditor = () => {
         const formData = new FormData();
 
         formData.append('img', e.target.files[0]);
-        
+
         uploadFileMutation.mutate({
             noteId,
             formData
@@ -60,14 +63,27 @@ export const NoteEditor = () => {
                 <CircularProgress isIndeterminate />
             </Center>
         ) : (
-            <NoteForm 
-                initialValues={{
-                    title: note.title,
-                    body: note.body
-                }}
-                handleSubmit={ handleSubmit }
-                handleFiles={ handleFiles }
-            />
+            <Box
+                h="100%"
+                overflowY="auto"
+            >
+                <VStack
+                    padding={5}
+                >
+                    <ImagesGrid
+                        images={note.files}
+                        boxSize={300}
+                    />
+                    <NoteForm
+                        initialValues={{
+                            title: note.title,
+                            body: note.body
+                        }}
+                        handleSubmit={handleSubmit}
+                        handleFiles={handleFiles}
+                    />
+                </VStack>
+            </Box>
         )
     );
 }

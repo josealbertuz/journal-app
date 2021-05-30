@@ -1,16 +1,17 @@
 import React from 'react';
 import styled from 'styled-components';
 import { imagesFilter } from '../../utils/images-filter';
-import { Image } from '../notes/Image';
+import { ImageItemGrid } from './ImageItemGrid';
 
 const Grid = styled.div`
     display: flex;
-    justify-content: space-evenly;
     flex-wrap: wrap;
+    gap: 5px;
+    width: 100%;
 `;
 
 
-export const ImagesGrid = ({ images = [], filter = false, imageHeight = 100, imageWidth = 100 }) => {
+export const ImagesGrid = ({ images = [], filter = false, boxSize = 100 }) => {
 
     if (filter) {
 
@@ -18,13 +19,11 @@ export const ImagesGrid = ({ images = [], filter = false, imageHeight = 100, ima
 
     } else {
         images = images.map((image, index) =>
-            <Image
+            <ImageItemGrid
                 key={index}
                 src={image}
-                alt=""
-                height={imageHeight}
-                width={imageWidth}
-                 />
+                boxSize={boxSize}
+            />
         );
     }
 

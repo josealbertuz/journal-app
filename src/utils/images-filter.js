@@ -1,17 +1,15 @@
 import { ImagePlaceholder } from "../components/notes/ImagePlaceholder";
-import { Image } from "../components/notes/Image";
+import { ImageItemGrid } from "../components/notes/ImageItemGrid";
 
-export const imagesFilter = (images = [], height = 100, width = 100) => {
+export const imagesFilter = (images = [], boxSize = 100) => {
     const imagesLength = images.length;
 
     return [
         ...images.slice(0, 3).map((image, index) =>
-            <Image
+            <ImageItemGrid
                 key={index}
                 src={image}
-                alt=""
-                height={ height }
-                width={ width }
+                boxSize={boxSize}
                 />),
         <ImagePlaceholder
          key={4}

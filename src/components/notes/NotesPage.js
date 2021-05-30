@@ -12,12 +12,11 @@ import { NoteCard } from './NoteCard';
 
 
 const Grid = styled.div`
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
-    grid-gap: 1rem;
-    padding: 1.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    padding: 1rem;
 `;
-
 
 const Wrapper = styled.div`
     height: 100%;
