@@ -1,23 +1,24 @@
-import React, { useReducer } from 'react'
+import React from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { AppRouter } from './routes/AppRouter'
-import { authReducer } from './reducers/authReducer';
 import { AuthContext } from './contexts/AuthContext';
-import { ChakraProvider } from '@chakra-ui/react';
+import { Center, ChakraProvider, CircularProgress } from '@chakra-ui/react';
+import { useUserFinder } from './hooks/useUserFinder';
 
 const queryClient = new QueryClient();
 
-const init = () => ({logged : false })
 
 export const JournalApp = () => {
 
-    const [user, dispatch] = useReducer(authReducer, {}, init);
+    const { isLoading, user, setUser } = useUserFinder();
 
-    return (
-        <QueryClientProvider client={ queryClient }>
+    return (isLoading) ? (<Center>
+        <CircularProgress isIndeterminate />
+    </Center>) : (
+        <QueryClientProvider client={queryClient}>
             <AuthContext.Provider value={{
                 user,
-                dispatch
+                setUser
             }}>
                 <ChakraProvider>
                     <AppRouter />

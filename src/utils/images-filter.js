@@ -8,7 +8,7 @@ export const imagesFilter = (images = [], boxSize = 100) => {
         ...images.slice(0, 3).map((image, index) =>
             <ImageItemGrid
                 key={index}
-                src={image}
+                image={image}
                 boxSize={boxSize}
                 />),
         <ImagePlaceholder

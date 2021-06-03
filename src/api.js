@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-axios.defaults.baseURL = 'http://localhost:8080/api';
+axios.defaults.baseURL = 'http://localhost:3000/api';
 
 export const login = (email, password) => {
     return axios.post(
@@ -34,17 +34,28 @@ export const googleSignIn = (id_token) => {
 
 }
 
+export const getAuthorizedUser = () => {
+
+    return axios.get(
+        '/auth/get-authorized-user'
+    );
+
+}
+
+export const logout = () => {
+
+    return axios.get(
+        '/auth/logout'
+    );
+
+}
+
 export const addTask = (description) => {
 
     return axios.post(
         '/task',
         {
             description
-        },
-        {
-            headers : {
-                'x-token' : localStorage.getItem('x-token')
-            }
         }
     );
 
@@ -53,27 +64,17 @@ export const addTask = (description) => {
 export const getAllTasks = () => {
 
     return axios.get(
-        '/task',
-        {
-            headers : {
-                'x-token' : localStorage.getItem('x-token')
-            }
-        }
+        '/task'
     );
 
 }
 
-export const editTask = ({id, ...task}) => {
+export const editTask = ({ id, ...task }) => {
 
     return axios.put(
         `/task/${id}`,
         {
             task
-        },
-        {
-            headers : {
-                'x-token' : localStorage.getItem('x-token')
-            }
         }
     );
 
@@ -83,12 +84,7 @@ export const deleteTask = (taskId) => {
 
 
     return axios.delete(
-        `/task/${taskId}`,
-        {
-            headers : {
-                'x-token' : localStorage.getItem('x-token')
-            }
-        }
+        `/task/${taskId}`
     );
 
 }
@@ -96,13 +92,7 @@ export const deleteTask = (taskId) => {
 export const addNote = () => {
 
     return axios.post(
-        '/note',
-        null,
-        {
-            headers : {
-                'x-token' : localStorage.getItem('x-token')
-            }
-        }
+        '/note'
     );
 
 }
@@ -110,24 +100,14 @@ export const addNote = () => {
 export const getNoteById = (noteId) => {
 
     return axios.get(
-        `/note/${noteId}`,
-        {
-            headers : {
-                'x-token' : localStorage.getItem('x-token')
-            }
-        }
+        `/note/${noteId}`
     );
 
 }
 
 export const getAllNotes = () => {
     return axios.get(
-        '/note', 
-        {
-            headers : {
-                'x-token' : localStorage.getItem('x-token')
-            }
-        }
+        '/note'
     );
 }
 
@@ -138,11 +118,6 @@ export const editNote = ({ noteId, title, body }) => {
         {
             title,
             body
-        },
-        {
-            headers : {
-                'x-token' : localStorage.getItem('x-token')
-            }
         }
     );
 
@@ -151,27 +126,24 @@ export const editNote = ({ noteId, title, body }) => {
 export const deleteNote = (noteId) => {
 
     return axios.delete(
-        `/note/${noteId}`,
-        {
-            headers : {
-                'x-token' : localStorage.getItem('x-token')
-            }
-        }
+        `/note/${noteId}`
     );
 
 }
 
-export const uploadImage = ({noteId, formData}) => {
+export const uploadImage = ({ noteId, formData }) => {
 
     return axios.post(
         `/uploads/${noteId}`,
-        formData,
-        {
-            headers : {
-                "Content-Type": "multipart/form-data",
-                'x-token' : localStorage.getItem('x-token')
-            }
-        }
+        formData
+    );
+
+}
+
+export const deleteImage = (image) => {
+
+    return axios.delete(
+        `/uploads/${image}`
     );
 
 }

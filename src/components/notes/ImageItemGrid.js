@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 import { Box } from '@chakra-ui/layout';
 
-export const ImageItemGrid = ({ boxSize = 100, src }) => {
+export const ImageItemGrid = ({ boxSize = 100, image = {}, handleDeleteImage}) => {
 
     const [showDeleteButton, setshowDeleteButton] = useState(false)
 
@@ -18,17 +18,19 @@ export const ImageItemGrid = ({ boxSize = 100, src }) => {
                 onMouseOver={ () => setshowDeleteButton(true) }
                 boxSize={boxSize}
                 objectFit="cover"
-                src={src}
+                src={image.url}
 
             />
-            <IconButton
-                display={ !showDeleteButton && 'none' }
+            {
+                (showDeleteButton && handleDeleteImage) && <IconButton
+                onClick={ () => handleDeleteImage(image.id) }
                 position="absolute"
                 top="2%"
                 right="1%"
                 bottom="auto"
                 icon={<FontAwesomeIcon icon={faTimesCircle} />}
             />
+            }
         </Box>
     )
 }

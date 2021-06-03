@@ -1,23 +1,32 @@
-import { AppBar, Icon, IconButton, Tab, Tabs, Toolbar } from '@material-ui/core'
 import React, { useContext } from 'react'
+import { AppBar, Icon, IconButton, Tab, Tabs, Toolbar } from '@material-ui/core'
 import { useHistory } from 'react-router'
 import { Link } from 'react-router-dom'
 import { AuthContext } from '../../contexts/AuthContext'
-import { AuthTypes } from '../../types/AuthTypes'
+import { useQueryClient } from 'react-query'
+import { logout } from '../../api'
 
 export const Appbar = () => {
 
-
-    const { dispatch } = useContext(AuthContext);
+    const { setUser } = useContext(AuthContext);
 
     const history = useHistory();
 
+    const queryClient = useQueryClient();
+
     const handleLogout = () => {
 
-        dispatch({
-            type: AuthTypes.logout
-        });
+        logout().then(() => {
 
+            setUser({
+                user : {
+                    logged : false
+                }
+            });
+    
+            queryClient.invalidateQueries();
+        });
+        
     }
 
     return (

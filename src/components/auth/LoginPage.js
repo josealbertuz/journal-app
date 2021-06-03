@@ -6,7 +6,6 @@ import GoogleLogin from 'react-google-login';
 import { useFormik } from 'formik';
 import { loginSchema } from '../../validators/login-validator';
 import { AuthContext } from '../../contexts/AuthContext';
-import { AuthTypes } from '../../types/AuthTypes';
 import { googleSignIn, login } from '../../api';
 
 
@@ -51,30 +50,32 @@ export const LoginPage = () => {
 
     const closeSnackBar = () => {
         setSnackBar({
-            open : false,
-            message : ''
+            open: false,
+            message: ''
         })
-    } 
+    }
 
-    const { dispatch } = useContext(AuthContext);
+    const { setUser } = useContext(AuthContext);
 
-    const handleGoogleLogin = ({tokenId}) => {
+    const handleGoogleLogin = ({ tokenId }) => {
 
         googleSignIn(tokenId)
             .then((response) => {
- 
-                dispatch({
-                    type : AuthTypes.login,
-                    payload : response.data
+
+                setUser({
+                    user: {
+                        ...response.data,
+                        logged: true
+                    }
                 });
 
                 history.replace('/');
             })
             .catch(() => {
                 setSnackBar({
-                    open : true,
-                    message : 'That user does not exists'
-                })
+                    open: true,
+                    message: 'That user does not exists'
+                });
             });
 
     }
@@ -83,17 +84,20 @@ export const LoginPage = () => {
 
         login(email, password)
             .then((response) => {
-                dispatch({
-                    type : AuthTypes.login,
-                    payload : response.data
+
+                setUser({
+                    user: {
+                        ...response.data,
+                        logged: true
+                    }
                 });
 
                 history.replace('/');
             })
             .catch(() => {
                 setSnackBar({
-                    open : true,
-                    message : 'That user does not exists'
+                    open: true,
+                    message: 'That user does not exists'
                 })
                 formikBag.setSubmitting(false);
             });

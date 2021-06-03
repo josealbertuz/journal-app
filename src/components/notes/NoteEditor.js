@@ -4,7 +4,7 @@ import { useNote } from '../../hooks/useNote';
 import { Center } from '@chakra-ui/layout';
 import { CircularProgress } from '@chakra-ui/progress';
 import { useMutation, useQueryClient } from 'react-query';
-import { editNote, uploadImage } from '../../api';
+import { deleteImage, editNote, uploadImage } from '../../api';
 import { NoteForm } from './NoteForm';
 import { VStack } from '@chakra-ui/layout';
 import { ImagesGrid } from './ImagesGrid';
@@ -38,9 +38,8 @@ export const NoteEditor = () => {
 
     const uploadFileMutation = useMutation((values) => uploadImage(values), {
         onSuccess: () => {
-            queryClient.invalidateQueries([noteId, 'getNoteById']);
+            queryClient.invalidateQueries(['getNoteById', noteId]);
             queryClient.invalidateQueries('getAllNotes');
-
         }
     })
 
@@ -57,6 +56,17 @@ export const NoteEditor = () => {
 
     }
 
+    const deleteFileMutation = useMutation((image) => deleteImage(image), {
+        onSuccess: () => {
+            queryClient.invalidateQueries(['getNoteById', noteId]);
+            queryClient.invalidateQueries('getAllNotes');
+        }
+    });
+
+    const handleDeleteImage = (image) => {
+        deleteFileMutation.mutate(image);
+    }
+
     return (
         (isFetching) ? (
             <Center>
@@ -71,6 +81,7 @@ export const NoteEditor = () => {
                     padding={5}
                 >
                     <ImagesGrid
+                        handleDeleteImage={handleDeleteImage}
                         images={note.files}
                         boxSize={300}
                     />

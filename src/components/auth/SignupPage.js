@@ -6,7 +6,6 @@ import { useFormik } from 'formik';
 import { signupSchema } from '../../validators/signup-validator';
 import { AuthContext } from '../../contexts/AuthContext';
 import { signup } from '../../api';
-import { AuthTypes } from '../../types/AuthTypes';
 
 const SignupContainer = styled(Paper)`
     display: flex;
@@ -35,7 +34,7 @@ export const SignupPage = () => {
 
     const history = useHistory();
 
-    const { dispatch } = useContext(AuthContext);
+    const { setUser } = useContext(AuthContext);
 
     const [snackBar, setSnackBar] = useState({
         open : false,
@@ -54,9 +53,11 @@ export const SignupPage = () => {
         signup(email, username, password)
             .then((response) => {
 
-                dispatch({
-                    type : AuthTypes.login,
-                    payload : response.data
+                setUser({
+                    user: {
+                        ...response.data,
+                        logged: true
+                    }
                 });
 
                 history.replace('/');

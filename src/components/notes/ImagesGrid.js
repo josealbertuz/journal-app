@@ -11,7 +11,7 @@ const Grid = styled.div`
 `;
 
 
-export const ImagesGrid = ({ images = [], filter = false, boxSize = 100 }) => {
+export const ImagesGrid = ({ images = [], filter = false, boxSize = 100, handleDeleteImage }) => {
 
     if (filter) {
 
@@ -20,8 +20,9 @@ export const ImagesGrid = ({ images = [], filter = false, boxSize = 100 }) => {
     } else {
         images = images.map((image, index) =>
             <ImageItemGrid
+                handleDeleteImage={handleDeleteImage}
                 key={index}
-                src={image}
+                image={image}
                 boxSize={boxSize}
             />
         );
