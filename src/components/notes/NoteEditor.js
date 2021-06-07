@@ -9,6 +9,7 @@ import { NoteForm } from './NoteForm';
 import { VStack } from '@chakra-ui/layout';
 import { ImagesGrid } from './ImagesGrid';
 import { Box } from '@chakra-ui/layout';
+import { LoadingModal } from '../ui/LoadingModal';
 
 
 export const NoteEditor = () => {
@@ -74,6 +75,7 @@ export const NoteEditor = () => {
             </Center>
         ) : (
             <Box
+                onScroll={(e) => console.log(e.target.scrollTop)}
                 h="100%"
                 overflowY="auto"
             >
@@ -94,6 +96,7 @@ export const NoteEditor = () => {
                         handleFiles={handleFiles}
                     />
                 </VStack>
+                <LoadingModal show={uploadFileMutation.isLoading} />
             </Box>
         )
     );

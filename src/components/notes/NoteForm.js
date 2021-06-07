@@ -1,14 +1,12 @@
 import React from 'react';
-import { Button } from '@chakra-ui/button';
 import { VStack } from '@chakra-ui/layout';
-import { Edit } from '@material-ui/icons';
 import { Formik } from 'formik';
 import styled from 'styled-components';
-import { ImagesGrid } from '../notes/ImagesGrid';
 import { Flex } from '@chakra-ui/layout';
 import { UploadButton } from '../ui/UploadButton';
 import { Input } from '@chakra-ui/input';
 import { TextareaAutosize } from '@material-ui/core';
+import { EditButton } from './EditButton';
 
 const Form = styled.form`
     width: 100%;
@@ -43,10 +41,6 @@ export const NoteForm = ({ initialValues, handleSubmit, handleFiles }) => {
                                 <UploadButton 
                                     handleFiles={ handleFiles }
                                 />       
-                                <Button
-                                    type="submit"
-                                    leftIcon={<Edit />}
-                                >Edit</Button>
                                 </Flex>
                                 <Input
                                     fontSize="1.5rem"
@@ -64,8 +58,8 @@ export const NoteForm = ({ initialValues, handleSubmit, handleFiles }) => {
                                     value={props.values.body}
                                     placeholder="body"
                                 />
-                                <ImagesGrid />
                             </VStack>
+                            <EditButton />
                         </Form>
                     )
                 }

@@ -14,7 +14,6 @@ import { NoteCard } from './NoteCard';
 const Grid = styled.div`
     display: flex;
     flex-wrap: wrap;
-    gap: 1rem;
     padding: 1rem;
 `;
 

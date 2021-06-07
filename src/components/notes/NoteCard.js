@@ -1,13 +1,27 @@
 import { Button } from '@chakra-ui/button';
-import { Box } from '@chakra-ui/layout';
 import { Text } from '@chakra-ui/layout';
 import { Card, CardActions, CardContent } from '@material-ui/core';
 import { Delete } from '@material-ui/icons';
 import React from 'react';
 import { useMutation, useQueryClient } from 'react-query';
 import { useHistory } from 'react-router';
+import styled from 'styled-components';
 import { deleteNote } from '../../api';
 import { ImagesGrid } from './ImagesGrid';
+
+
+const Container = styled.div`
+    padding: 1rem;
+
+    @media (max-width: 600px){
+        flex-grow: 1;
+    }
+
+    @media (min-width: 756px){
+        width: 370px;
+    }
+
+`;
 
 export const NoteCard = ({ note }) => {
 
@@ -33,10 +47,7 @@ export const NoteCard = ({ note }) => {
 
 
     return (
-        <Box
-            padding={1}
-            width="270px"
-        >
+        <Container>
             <Card>
                 <CardContent>
                     {
@@ -81,6 +92,6 @@ export const NoteCard = ({ note }) => {
                 </Button>
                 </CardActions>
             </Card>
-        </Box>
+        </Container>
     )
 }
